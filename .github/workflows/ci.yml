@@ -36,7 +36,7 @@ jobs:
 
       - name: Run tests for 3_prac
         run: |
-          pytest tests/test_3_prac.py  # Запуск тестов для 3-й практики
+          pytest -s tests/test_3_prac.py  # Запуск тестов для 3-й практики
 
 
 
