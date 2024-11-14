@@ -54,27 +54,27 @@ jobs:
         if: always()
         run: |
           if [[ "${{ steps.test_1_prac.outcome }}" == "success" ]]; then
-            sed -i 's/\(\[Операторы\](1_prac)\) .*/\1 ✅/' README.md
+            sed -i 's/\(\[Типы данных\](1_prac)\) .*/\1 ✅/' README.md
           else
-            sed -i 's/\(\[Операторы\](1_prac)\) .*/\1 ❌/' README.md
+            sed -i 's/\(\[Типы данных\](1_prac)\) .*/\1 ❌/' README.md
           fi
 
       - name: Update README badge for 2_prac
         if: always()
         run: |
           if [[ "${{ steps.test_2_prac.outcome }}" == "success" ]]; then
-            sed -i 's/\(\[Условия и циклы\](2_prac)\) .*/\1 ✅/' README.md
+            sed -i 's/\(\[Операторы и выражения\](2_prac)\) .*/\1 ✅/' README.md
           else
-            sed -i 's/\(\[Условия и циклы\](2_prac)\) .*/\1 ❌/' README.md
+            sed -i 's/\(\[Операторы и выражения\](2_prac)\) .*/\1 ❌/' README.md
           fi
 
       - name: Update README badge for 3_prac
         if: always()
         run: |
           if [[ "${{ steps.test_3_prac.outcome }}" == "success" ]]; then
-            sed -i 's/\(\[Функции\](3_prac)\) .*/\1 ✅/' README.md
+            sed -i 's/\(\[Поток команд или структурное программирование в Python\](3_prac)\) .*/\1 ✅/' README.md
           else
-            sed -i 's/\(\[Функции\](3_prac)\) .*/\1 ❌/' README.md
+            sed -i 's/\(\[Поток команд или структурное программирование в Python\](3_prac)\) .*/\1 ❌/' README.md
           fi
           
       # Коммит и пуш изменений в README.md
