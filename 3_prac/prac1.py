@@ -12,10 +12,11 @@ def fizz_buzz (value:int):
     else:
         print(value)
     
-
-user_input: str = input()
-user_input_int: int = int(user_input)
-abs_user_input_int: int = abs(user_input_int)
-fizz_buzz(abs_user_input_int)
-
-
+def main():
+    user_input: str = input()
+    user_input_int: int = int(user_input)
+    abs_user_input_int: int = abs(user_input_int)
+    fizz_buzz(abs_user_input_int)
+    
+if __name__ == "__main__":
+    main()
