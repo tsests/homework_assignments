@@ -16,12 +16,16 @@ def is_contain_three_words_in_a_row(text_data:str):
     
     return true_flag
 
-text_data = [
-    "Hello World hello",
-    "He is 123 man",
-    "1 2 3 4",
-    "start 5 one two three 7 end"
-]
+def main():
+    text_data = [
+        "Hello World hello",
+        "He is 123 man",
+        "1 2 3 4",
+        "start 5 one two three 7 end"
+    ]
+    
+    for i in text_data:
+        print(is_contain_three_words_in_a_row(i))
 
-for i in text_data:
-    print(is_contain_three_words_in_a_row(i))
+if __name__ == "__main__":
+    main()
