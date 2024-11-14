@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../3
 # Импортируем функции
 from prac1 import fizz_buzz
 from prac2 import estimate_value
-#from prac3 import generate_sequence
+from prac3 import main
 #from prac4 import get_secret_message
 #from prac5 import is_contain_three_words_in_a_row
 #from prac6 import jokes
@@ -53,6 +53,30 @@ def test_estimate_value(input_value, expected_output):
         estimate_value(int(input_value))  # вызываем функцию
         mock_print.assert_called_with(expected_output)
 
+@pytest.mark.parametrize(
+    "input_values, expected_output",
+    [
+        # Ввод 0, программа должна запросить повторно и ввести 3
+        (['0', '3'], '123'),  # Ввод: сначала 0, потом 3, вывод: 1 2 3
+        
+        # Ввод 1, сразу выводим 1
+        (['1'], '1'),  # Ввод: 1, вывод: 1
+        
+        # Ввод 5, выводим числа от 1 до 5
+        (['5'], '12345'),  # Ввод: 5, вывод: 1 2 3 4 5
+        
+        # Ввод отрицательного числа, например -3, и потом 3
+        (['-3', '3'], '123'),  # Ввод: -3, потом 3, вывод: 1 2 3
+    ]
+)
+def test_generate_sequence(input_values, expected_output):
+    # Мокаем input
+    with patch('builtins.input', side_effect=input_values), patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+        # Запускаем программу
+        main()
 
+        # Проверяем вывод
+        output = mock_stdout.getvalue().strip()  # Убираем лишние пробелы
+        assert output == expected_output
 
 
