@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main  # Запуск тестов при пуше в ветку main
+    paths-ignore:
+      - 'README.md'
   pull_request:
     branches:
       - main  # Запуск тестов при создании pull request в main
+    paths-ignore:
+      - 'README.md'
 
 jobs:
   test:
@@ -38,5 +42,38 @@ jobs:
         run: |
           pytest tests/test_3_prac.py  # Запуск тестов для 3-й практики
 
+      - name: Update README with test results
+        run: |
+          # Создаем переменные для статуса тестов с использованием эмодзи
+          if [[ "${{ steps.test_1_prac.outcome }}" == "success" ]]; then
+            status_1="✅"
+          else
+            status_1="❌"
+          fi
 
+          if [[ "${{ steps.test_2_prac.outcome }}" == "success" ]]; then
+            status_2="✅"
+          else
+            status_2="❌"
+          fi
+
+          if [[ "${{ steps.test_3_prac.outcome }}" == "success" ]]; then
+            status_3="✅"
+          else
+            status_3="❌"
+          fi
+
+          # Обновляем README.md, добавляя статусы для каждого теста
+          echo -e "# Test Statuses\n\n- 1_prac: $status_1\n- 2_prac: $status_2\n- 3_prac: $status_3" > README.md
+
+      - name: Commit and push changes to README
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add README.md
+          git commit -m "Update README with test results" || echo "No changes to commit"
+          git push
+        if: success()  # Выполняется только если предыдущие шаги прошли успешно
 
