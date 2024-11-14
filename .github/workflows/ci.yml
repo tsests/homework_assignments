@@ -29,4 +29,7 @@ jobs:
       - name: Run tests for 1_prac
         run: |
           pytest tests/test_1_prac.py  # Запускаем тесты для 1_prac
+
+      - name: Run tests for 2_prac
+        run: |
           pytest tests/test_2_prac.py  # Запуск тестов для 2-й практики
