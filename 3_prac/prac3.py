@@ -1,5 +1,5 @@
 ### 3. Последовательность
-def main();
+def main():
     user_input_int: int = 0
     while user_input_int < 1:
         user_input: str = input()
