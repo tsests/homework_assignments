@@ -9,11 +9,11 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../3
 
 # Импортируем функции
 from prac1 import fizz_buzz
-from prac2 import estimate_value
-from prac3 import generate_sequence
-from prac4 import get_secret_message
-from prac5 import is_contain_three_words_in_a_row
-from prac6 import jokes
+#from prac2 import estimate_value
+#from prac3 import generate_sequence
+#from prac4 import get_secret_message
+#from prac5 import is_contain_three_words_in_a_row
+#from prac6 import jokes
 
 
 def test_fizz_buzz_fizz():
