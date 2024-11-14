@@ -1,6 +1,7 @@
 import sys
 import os
 import unittest
+from unittest.mock import patch
 from io import StringIO
 
 # Добавляем путь до папки 3_prac
@@ -15,29 +16,37 @@ from prac5 import is_contain_three_words_in_a_row
 from prac6 import jokes
 
 class TestFizzBuzz(unittest.TestCase):
-    @patch('builtins.input', return_value='9')
+    
     @patch('sys.stdout', new_callable=StringIO)
-    def test_fizz(self, mock_stdout, mock_input):
-        fizz_buzz(9)
+    def test_fizz(self, mock_stdout):
+        fizz_buzz(3)
         self.assertEqual(mock_stdout.getvalue().strip(), "Fizz")
 
-    @patch('builtins.input', return_value='10')
     @patch('sys.stdout', new_callable=StringIO)
-    def test_buzz(self, mock_stdout, mock_input):
-        fizz_buzz(10)
+    def test_buzz(self, mock_stdout):
+        fizz_buzz(5)
         self.assertEqual(mock_stdout.getvalue().strip(), "Buzz")
 
-    @patch('builtins.input', return_value='15')
     @patch('sys.stdout', new_callable=StringIO)
-    def test_fizz_buzz(self, mock_stdout, mock_input):
+    def test_fizz_buzz(self, mock_stdout):
         fizz_buzz(15)
         self.assertEqual(mock_stdout.getvalue().strip(), "Fizz Buzz")
 
-    @patch('builtins.input', return_value='7')
     @patch('sys.stdout', new_callable=StringIO)
-    def test_number(self, mock_stdout, mock_input):
+    def test_number(self, mock_stdout):
         fizz_buzz(7)
         self.assertEqual(mock_stdout.getvalue().strip(), "7")
+
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_negative(self, mock_stdout):
+        fizz_buzz(-3)
+        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz")
+        fizz_buzz(-5)
+        self.assertEqual(mock_stdout.getvalue().strip(), "Buzz")
+        fizz_buzz(-15)
+        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz Buzz")
+        fizz_buzz(-7)
+        self.assertEqual(mock_stdout.getvalue().strip(), "-7")
 
 class TestEstimateValue(unittest.TestCase):
     @patch('builtins.input', return_value='3')
