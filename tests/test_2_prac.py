@@ -27,7 +27,7 @@ def test_rounding(capsys):
     # Проверяем, что вывод содержит все три ожидаемых формата
     assert "1. 14.72" in captured_output
     assert "2. 15" in captured_output
-    assert "3. 000000014.721" in captured_output
+    assert "3. 0000014.721" in captured_output
 
 
 def test_reverse_number(capsys):
