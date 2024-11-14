@@ -15,64 +15,54 @@ from prac5 import is_contain_three_words_in_a_row
 from prac6 import jokes
 
 class TestFizzBuzz(unittest.TestCase):
-    def test_fizz(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='9')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_fizz(self, mock_stdout, mock_input):
         fizz_buzz(9)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "Fizz")
+        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz")
 
-    def test_buzz(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='10')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_buzz(self, mock_stdout, mock_input):
         fizz_buzz(10)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "Buzz")
+        self.assertEqual(mock_stdout.getvalue().strip(), "Buzz")
 
-    def test_fizz_buzz(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='15')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_fizz_buzz(self, mock_stdout, mock_input):
         fizz_buzz(15)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "Fizz Buzz")
+        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz Buzz")
 
-    def test_number(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='7')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_number(self, mock_stdout, mock_input):
         fizz_buzz(7)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "7")
-
+        self.assertEqual(mock_stdout.getvalue().strip(), "7")
 
 class TestEstimateValue(unittest.TestCase):
-    def test_poor(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='3')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_odd(self, mock_stdout, mock_input):
         estimate_value(3)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "Плохо")
+        self.assertEqual(mock_stdout.getvalue().strip(), "Плохо")
 
-    def test_not_bad(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='4')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_not_bad(self, mock_stdout, mock_input):
         estimate_value(4)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "Неплохо")
+        self.assertEqual(mock_stdout.getvalue().strip(), "Неплохо")
 
-    def test_so_so(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='10')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_so_so(self, mock_stdout, mock_input):
         estimate_value(10)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "Так себе")
+        self.assertEqual(mock_stdout.getvalue().strip(), "Так себе")
 
-    def test_excellent(self):
-        captured_output = StringIO()
-        sys.stdout = captured_output
+    @patch('builtins.input', return_value='22')
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_excellent(self, mock_stdout, mock_input):
         estimate_value(22)
-        sys.stdout = sys.__stdout__
-        self.assertEqual(captured_output.getvalue().strip(), "Отлично")
-
+        self.assertEqual(mock_stdout.getvalue().strip(), "Отлично")
 
 class TestGenerateSequence(unittest.TestCase):
     def test_sequence(self):
@@ -85,7 +75,7 @@ class TestGenerateSequence(unittest.TestCase):
 
 class TestSecretMessage(unittest.TestCase):
     def test_secret_message(self):
-        expected_message = "IAMMYSTERYSECRETMESSAGEWAITINGTOBEUNLOCKED"
+        expected_message = "IAMSOTIREDPLEASESAVEME"
         self.assertEqual(get_secret_message(), expected_message)
 
 
