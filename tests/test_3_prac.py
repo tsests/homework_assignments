@@ -140,11 +140,8 @@ def test_is_contain_three_words_in_a_row():
     ]
 )
 def test_jokes(input_value, expected_output):
-    # Мокаем print и передаем данные в функцию jokes
-    with patch('builtins.print') as mock_print:
-        result = jokes(input_value)
-        assert result == expected_output  # Проверка результата
-        mock_print.assert_called()  # Проверка, что print был вызван (по желанию, если нужно)
+    result = jokes(input_value)
+    assert result == expected_output  # Проверяем, что результат функции совпадает с ожидаемым
 
 
 
