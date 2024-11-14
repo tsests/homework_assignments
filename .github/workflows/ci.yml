@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  # Клонируем репозиторий
+        uses: actions/checkout@v4  # Клонируем репозиторий
 
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10.12'  # Указываем нужную версию Python (например, 3.8)
 
@@ -30,43 +30,56 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Запуск тестов для каждой темы
       - name: Run tests for 1_prac
+        id: test_1_prac
         run: |
-          pytest tests/test_1_prac.py  # Запускаем тесты для 1_prac
+          pytest tests/test_1_prac.py
+        continue-on-error: true
 
       - name: Run tests for 2_prac
+        id: test_2_prac
         run: |
-          pytest tests/test_2_prac.py  # Запуск тестов для 2-й практики
+          pytest tests/test_2_prac.py
+        continue-on-error: true
 
       - name: Run tests for 3_prac
+        id: test_3_prac
         run: |
-          pytest tests/test_3_prac.py  # Запуск тестов для 3-й практики
+          pytest tests/test_3_prac.py
+        continue-on-error: true
 
-      - name: Update README with test results
+      # Обновление статуса эмоджи в README.md в зависимости от результата тестов
+      - name: Update README badge for 1_prac
+        if: always()
         run: |
-          # Создаем переменные для статуса тестов с использованием эмодзи
           if [[ "${{ steps.test_1_prac.outcome }}" == "success" ]]; then
-            status_1="✅"
+            sed -i 's/\(\[Операторы\](1_prac)\) .*/\1 ✅/' README.md
           else
-            status_1="❌"
+            sed -i 's/\(\[Операторы\](1_prac)\) .*/\1 ❌/' README.md
           fi
 
+      - name: Update README badge for 2_prac
+        if: always()
+        run: |
           if [[ "${{ steps.test_2_prac.outcome }}" == "success" ]]; then
-            status_2="✅"
+            sed -i 's/\(\[Условия и циклы\](2_prac)\) .*/\1 ✅/' README.md
           else
-            status_2="❌"
+            sed -i 's/\(\[Условия и циклы\](2_prac)\) .*/\1 ❌/' README.md
           fi
 
+      - name: Update README badge for 3_prac
+        if: always()
+        run: |
           if [[ "${{ steps.test_3_prac.outcome }}" == "success" ]]; then
-            status_3="✅"
+            sed -i 's/\(\[Функции\](3_prac)\) .*/\1 ✅/' README.md
           else
-            status_3="❌"
+            sed -i 's/\(\[Функции\](3_prac)\) .*/\1 ❌/' README.md
           fi
-
-          # Обновляем README.md, добавляя статусы для каждого теста
-          echo -e "# Test Statuses\n\n- 1_prac: $status_1\n- 2_prac: $status_2\n- 3_prac: $status_3" > README.md
-
-      - name: Commit and push changes to README
+          
+      # Коммит и пуш изменений в README.md
+      - name: Commit and push badge updates
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -75,5 +88,3 @@ jobs:
           git add README.md
           git commit -m "Update README with test results" || echo "No changes to commit"
           git push
-        if: success()  # Выполняется только если предыдущие шаги прошли успешно
-
