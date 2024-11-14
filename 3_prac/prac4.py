@@ -1,5 +1,5 @@
 ### 4. Секретное сообщение
-def main():
+def secret_message():
     text_data: str = """yesterday, I stArted reading a new book. it's about ancient MythS 
     and hOw They Influence ouR modErn worlD. honestly, i am amazed by the connections and 
     the time the author Put into researching everything. it made me wonder if there are
@@ -20,4 +20,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    secret_message()
