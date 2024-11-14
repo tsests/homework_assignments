@@ -22,7 +22,7 @@ def test_integer_division_and_modulus(capsys):
 
 
 def test_rounding(capsys):
-    result = subprocess.run(["python3", "2_prac/5.py"], capture_output=True, text=True)
+    result = subprocess.run(["python3", "2_prac/4.py"], capture_output=True, text=True)
     captured_output = result.stdout
     # Проверяем, что вывод содержит все три ожидаемых формата
     assert "1. 14.72" in captured_output
