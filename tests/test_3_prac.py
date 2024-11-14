@@ -1,15 +1,18 @@
+import sys
+import os
 import unittest
 from io import StringIO
-import sys
 
-# Импорт функций из разных файлов
-from fizz_buzz import fizz_buzz
-from estimate_value import estimate_value
-from sequence import generate_sequence
-from secret_message import get_secret_message
-from three_words import is_contain_three_words_in_a_row
-from lefties import jokes
+# Добавляем путь до папки 3_prac
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../3_prac')))
 
+# Импортируем функции
+from 1 import fizz_buzz
+from 2 import estimate_value
+from 3 import generate_sequence
+from 4 import get_secret_message
+from 5 import is_contain_three_words_in_a_row
+from 6 import jokes
 
 class TestFizzBuzz(unittest.TestCase):
     def test_fizz(self):
