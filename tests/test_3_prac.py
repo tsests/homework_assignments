@@ -28,6 +28,6 @@ from prac1 import fizz_buzz
 )
 def test_fizz_buzz(input_value, expected_output):
     # Мокаем input и print
-    with patch.multiple('builtins', input=lambda: input_value, print=lambda x: x) as mocks:
-        output = fizz_buzz(abs(int(input_value)))
-        mocks['print'].assert_called_with(expected_output)
+    with patch('builtins.input', return_value=input_value), patch('builtins.print') as mock_print:
+        fizz_buzz(abs(int(input_value)))  # Вызываем функцию с преобразованием
+        mock_print.assert_called_with(expected_output)
