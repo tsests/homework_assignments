@@ -68,26 +68,25 @@ class TestGenerateSequence(unittest.TestCase):
     @patch("builtins.input", side_effect=["1"])
     def test_minimal_value(self, mock_input):
         with patch("sys.stdout", new=StringIO()) as output:
-            main_program()
+            generate_sequence()
             self.assertEqual(output.getvalue().strip(), "1")
 
     @patch("builtins.input", side_effect=["5"])
     def test_normal_value(self, mock_input):
         with patch("sys.stdout", new=StringIO()) as output:
-            main_program()
+            generate_sequence()
             self.assertEqual(output.getvalue().strip(), "12345")
 
     @patch("builtins.input", side_effect=["0", "-1", "3"])
     def test_incorrect_initial_values(self, mock_input):
         with patch("sys.stdout", new=StringIO()) as output:
-            main_program()
+            generate_sequence()
             self.assertEqual(output.getvalue().strip(), "123")
 
     @patch("builtins.input", side_effect=["100"])
     def test_large_value(self, mock_input):
         with patch("sys.stdout", new=StringIO()) as output:
-            main_program()
-            # 1 to 100 as a concatenated string
+            generate_sequence()
             expected_output = "".join(str(i) for i in range(1, 101))
             self.assertEqual(output.getvalue().strip(), expected_output)
 
@@ -95,7 +94,7 @@ class TestGenerateSequence(unittest.TestCase):
     def test_non_integer_input(self, mock_input):
         with patch("sys.stdout", new=StringIO()) as output:
             with self.assertRaises(ValueError):
-                main_program()
+                generate_sequence()
 
 
 class TestSecretMessage(unittest.TestCase):
