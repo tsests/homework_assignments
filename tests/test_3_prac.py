@@ -13,7 +13,7 @@ from prac2 import estimate_value
 from prac3 import main
 from prac4 import secret_message
 from prac5 import is_contain_three_words_in_a_row
-#from prac6 import jokes
+from prac6 import jokes
 
 @pytest.mark.parametrize(
     "input_value, expected_output",
@@ -124,6 +124,27 @@ def test_is_contain_three_words_in_a_row():
 
     assert is_contain_three_words_in_a_row("beginning of sentence test 123") == True
 
+@pytest.mark.parametrize(
+    "input_value, expected_output",
+    [
+        (["left", "right", "left", "stop"], "left,left,left,stop"),  # Проверка замены "right" на "left"
+        (["bright aright", "ok"], "bleft arleft,ok"),  # Проверка частичных слов с "right"
+        (["enough", "jokes"], "enough,jokes"),  # Проверка отсутствия "right" в данных
+        (["right", "right", "right"], "left,left,left"),  # Проверка только с "right"
+        ([], ""),  # Проверка на пустой список
+        (["right now", "we're right here", "turn right"], "left now,we're left here,turn left"),  # Проверка нескольких вхождений "right" в строках
+        (["   right    ", "  is right here   "], "   left    ,  is left here   "),  # Проверка строк с пробелами и форматированием
+        (["brighter", "sight", "right side"], "blefter, sight, left side"),  # Смешанные случаи: "right" внутри слов и отдельные слова
+        (["123right", "right!"], "123left,left!"),  # Проверка строк с числами и символами
+
+    ]
+)
+def test_jokes(input_value, expected_output):
+    # Мокаем print и передаем данные в функцию jokes
+    with patch('builtins.print') as mock_print:
+        result = jokes(input_value)
+        assert result == expected_output  # Проверка результата
+        mock_print.assert_called()  # Проверка, что print был вызван (по желанию, если нужно)
 
 
 
