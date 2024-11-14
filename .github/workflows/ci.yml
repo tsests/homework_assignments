@@ -33,3 +33,10 @@ jobs:
       - name: Run tests for 2_prac
         run: |
           pytest tests/test_2_prac.py  # Запуск тестов для 2-й практики
+
+      - name: Run tests for 3_prac
+        run: |
+          pytest tests/test_3_prac.py  # Запуск тестов для 3-й практики
+
+
+
