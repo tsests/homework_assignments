@@ -134,7 +134,7 @@ def test_is_contain_three_words_in_a_row():
         ([], ""),  # Проверка на пустой список
         (["right now", "we're right here", "turn right"], "left now,we're left here,turn left"),  # Проверка нескольких вхождений "right" в строках
         (["   right    ", "  is right here   "], "   left    ,  is left here   "),  # Проверка строк с пробелами и форматированием
-        (["brighter", "sight", "right side"], "blefter, sight, left side"),  # Смешанные случаи: "right" внутри слов и отдельные слова
+        (["brighter", "sight", "right side"], "blefter,sight,left side"),  # Смешанные случаи: "right" внутри слов и отдельные слова
         (["123right", "right!"], "123left,left!"),  # Проверка строк с числами и символами
 
     ]
