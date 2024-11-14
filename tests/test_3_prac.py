@@ -21,7 +21,7 @@ from prac1 import fizz_buzz
         ('3', 'Fizz'),
         ('5', 'Buzz'),
         ('15', 'Fizz Buzz'),
-        ('7', '7'),
+        ('7', 7),
         ('0', 'Fizz Buzz'),
         ('45', 'Fizz Buzz')
     ]
