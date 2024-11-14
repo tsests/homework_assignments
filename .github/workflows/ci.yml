@@ -1,0 +1,30 @@
+name: Python Tests
+
+on:
+  push:
+    branches:
+      - main  # Запуск тестов при пуше в ветку main
+  pull_request:
+    branches:
+      - main  # Запуск тестов при создании pull request в main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'  # Укажите нужную версию Python
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run tests
+        run: pytest test_homework.py
