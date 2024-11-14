@@ -1,6 +1,7 @@
 import pytest
 from io import StringIO
 import sys
+import os
 
 # Добавляем путь до папки 3_prac
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../3_prac')))
