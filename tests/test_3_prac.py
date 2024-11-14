@@ -128,7 +128,7 @@ def test_is_contain_three_words_in_a_row():
     "input_value, expected_output",
     [
         (["left", "right", "left", "stop"], "left,left,left,stop"),  # Проверка замены "right" на "left"
-        (["bright aright", "ok"], "bleft arleft,ok"),  # Проверка частичных слов с "right"
+        (["bright aright", "ok"], "bleft aleft,ok"),  # Проверка частичных слов с "right"
         (["enough", "jokes"], "enough,jokes"),  # Проверка отсутствия "right" в данных
         (["right", "right", "right"], "left,left,left"),  # Проверка только с "right"
         ([], ""),  # Проверка на пустой список
