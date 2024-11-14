@@ -3,7 +3,7 @@
 import re
 
 def jokes (commands):
-    result = re.sub("right", "left", ",".join(commands))
+    result = re.sub("right", "bad", ",".join(commands)) # Для проверки автоматики ьуь уюбрал left и поставил bad
     return result
 
 
