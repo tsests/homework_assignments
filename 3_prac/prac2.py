@@ -13,11 +13,16 @@ def estimate_value (value:int):
         print("Отлично")
 
     
+def main():
+    user_input: str= input()
+    user_input_int: int = int(user_input)
+    estimate_value(user_input_int)
+    #for i in range(1, 25):
+        #    print(i, end=" ")
+        #    estimate_value(i)
 
-user_input: str= input()
-user_input_int: int = int(user_input)
-estimate_value(user_input_int)
-
+if __name__ == "__main__":
+    main()
 #for i in range(1, 25):
 #    print(i, end=" ")
 #    estimate_value(i)
