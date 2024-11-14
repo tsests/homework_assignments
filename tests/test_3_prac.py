@@ -12,7 +12,7 @@ from prac1 import fizz_buzz
 from prac2 import estimate_value
 from prac3 import main
 from prac4 import secret_message
-#from prac5 import is_contain_three_words_in_a_row
+from prac5 import is_contain_three_words_in_a_row
 #from prac6 import jokes
 
 @pytest.mark.parametrize(
@@ -91,3 +91,43 @@ def test_secret_message():
 
         # Проверяем, что вывод совпадает с ожидаемым результатом
         assert output == expected_output
+
+def test_is_contain_three_words_in_a_row():
+    # Тесты для разных вариантов входных данных
+    
+    # Простой случай, где есть 3 слова подряд
+    assert is_contain_three_words_in_a_row("Hello World hello") == True
+    
+    # Есть 2 слова подряд, затем число, то результат False
+    assert is_contain_three_words_in_a_row("He is 123 man") == False
+    
+    # Весь текст состоит из чисел, три последовательных слова отсутствуют
+    assert is_contain_three_words_in_a_row("1 2 3 4") == False
+    
+    # Смешанный случай с числами, но есть три слова подряд
+    assert is_contain_three_words_in_a_row("start 5 one two three 7 end") == True
+    
+    # Пустая строка, нет слов вообще
+    assert is_contain_three_words_in_a_row("") == False
+    
+    # Только одно слово
+    assert is_contain_three_words_in_a_row("Hello") == False
+    
+    # Три слова подряд, но с числами, которые сбивают счетчик
+    assert is_contain_three_words_in_a_row("start 5 one two 3 three") == False
+    
+    # Строка, содержащая три последовательных слова без чисел в середине
+    assert is_contain_three_words_in_a_row("this is a test") == True
+
+    # Тест на строку, где слова разделены несколькими пробелами
+    assert is_contain_three_words_in_a_row("this   is    a test") == True
+
+    assert is_contain_three_words_in_a_row("beginning of sentence test 123") == True
+
+
+
+
+
+
+
+
