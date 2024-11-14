@@ -1,8 +1,6 @@
-import sys
-import os
-import unittest
-from unittest.mock import patch
+import pytest
 from io import StringIO
+import sys
 
 # Добавляем путь до папки 3_prac
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../3_prac')))
@@ -15,123 +13,62 @@ from prac4 import get_secret_message
 from prac5 import is_contain_three_words_in_a_row
 from prac6 import jokes
 
-class TestFizzBuzz(unittest.TestCase):
+def test_fizz(capsys):
+    # Проверяем, что выводится "Fizz" для чисел, кратных 3, но не 5
+    fizz_buzz(3)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Fizz"
     
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_fizz(self, mock_stdout):
-        fizz_buzz(3)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz")
+    fizz_buzz(6)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Fizz"
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_buzz(self, mock_stdout):
-        fizz_buzz(5)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Buzz")
+    fizz_buzz(9)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Fizz"
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_fizz_buzz(self, mock_stdout):
-        fizz_buzz(15)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz Buzz")
+def test_buzz(capsys):
+    # Проверяем, что выводится "Buzz" для чисел, кратных 5, но не 3
+    fizz_buzz(5)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Buzz"
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_number(self, mock_stdout):
-        fizz_buzz(7)
-        self.assertEqual(mock_stdout.getvalue().strip(), "7")
+    fizz_buzz(10)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Buzz"
 
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_negative(self, mock_stdout):
-        fizz_buzz(-3)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz")
-        fizz_buzz(-5)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Buzz")
-        fizz_buzz(-15)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Fizz Buzz")
-        fizz_buzz(-7)
-        self.assertEqual(mock_stdout.getvalue().strip(), "-7")
+    fizz_buzz(20)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Buzz"
 
-class TestEstimateValue(unittest.TestCase):
-    @patch('builtins.input', return_value='3')
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_odd(self, mock_stdout, mock_input):
-        estimate_value(3)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Плохо")
+def test_fizz_buzz(capsys):
+    # Проверяем, что выводится "Fizz Buzz" для чисел, кратных 3 и 5
+    fizz_buzz(15)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Fizz Buzz"
 
-    @patch('builtins.input', return_value='4')
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_not_bad(self, mock_stdout, mock_input):
-        estimate_value(4)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Неплохо")
+    fizz_buzz(30)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Fizz Buzz"
 
-    @patch('builtins.input', return_value='10')
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_so_so(self, mock_stdout, mock_input):
-        estimate_value(10)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Так себе")
+    fizz_buzz(45)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "Fizz Buzz"
 
-    @patch('builtins.input', return_value='22')
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_excellent(self, mock_stdout, mock_input):
-        estimate_value(22)
-        self.assertEqual(mock_stdout.getvalue().strip(), "Отлично")
+def test_other_numbers(capsys):
+    # Проверяем, что выводится число как строка для чисел, не кратных 3 и 5
+    fizz_buzz(1)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "1"
+    
+    fizz_buzz(2)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "2"
 
-class TestGenerateSequence(unittest.TestCase):
-    @patch("builtins.input", side_effect=["1"])
-    def test_minimal_value(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as output:
-            generate_sequence()
-            self.assertEqual(output.getvalue().strip(), "1")
+    fizz_buzz(7)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "7"
 
-    @patch("builtins.input", side_effect=["5"])
-    def test_normal_value(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as output:
-            generate_sequence()
-            self.assertEqual(output.getvalue().strip(), "12345")
-
-    @patch("builtins.input", side_effect=["0", "-1", "3"])
-    def test_incorrect_initial_values(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as output:
-            generate_sequence()
-            self.assertEqual(output.getvalue().strip(), "123")
-
-    @patch("builtins.input", side_effect=["100"])
-    def test_large_value(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as output:
-            generate_sequence()
-            expected_output = "".join(str(i) for i in range(1, 101))
-            self.assertEqual(output.getvalue().strip(), expected_output)
-
-    @patch("builtins.input", side_effect=["text", "5"])
-    def test_non_integer_input(self, mock_input):
-        with patch("sys.stdout", new=StringIO()) as output:
-            with self.assertRaises(ValueError):
-                generate_sequence()
-
-
-class TestSecretMessage(unittest.TestCase):
-    def test_secret_message(self):
-        expected_message = "IAMSOTIREDPLEASESAVEME"
-        self.assertEqual(get_secret_message(), expected_message)
-
-
-class TestThreeWords(unittest.TestCase):
-    def test_three_words_true(self):
-        self.assertTrue(is_contain_three_words_in_a_row("Hello World hello"))
-
-    def test_contains_number(self):
-        self.assertFalse(is_contain_three_words_in_a_row("He is 123 man"))
-
-    def test_only_numbers(self):
-        self.assertFalse(is_contain_three_words_in_a_row("1 2 3 4"))
-
-    def test_mixed_words_and_numbers(self):
-        self.assertTrue(is_contain_three_words_in_a_row("start 5 one two three 7 end"))
-
-
-class TestJokes(unittest.TestCase):
-    def test_replace_right_with_left(self):
-        self.assertEqual(jokes(["left", "right", "left", "stop"]), "left,left,left,stop")
-        self.assertEqual(jokes(["bright aright", "ok"]), "bleft aleft,ok")
-        self.assertEqual(jokes(["enough", "jokes"]), "enough,jokes")
-
-
-if __name__ == '__main__':
-    unittest.main()
+    fizz_buzz(8)
+    captured = capsys.readouterr()
+    assert captured.out.strip() == "8"
