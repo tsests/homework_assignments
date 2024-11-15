@@ -6,7 +6,10 @@ from random import randint
 first_random = randint(0, 100)
 second_random = randint(0, 100)
 
-print(f"x = {first_random} и y = {second_random}")
-print(first_random//second_random, end="")
-print(", ", end="")
-print(first_random%second_random)
+if second_random != 0:
+    print(f"x = {first_random} и y = {second_random}")
+    print(first_random//second_random, end="")
+    print(", ", end="")
+    print(first_random%second_random)
+else:
+   print("На ноль делить нельзя")
