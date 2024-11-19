@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../4
 # Импортируем функции
 from n_1 import multiply_last_with_even
 from n_2 import calculate_difference_max_min
+from n_3 import sort_abs_elements
 
 # Параметризованный тест
 @pytest.mark.parametrize(
@@ -52,6 +53,28 @@ def test_multiply_last_with_even(elements, expected_result):
 )
 def test_calculate_difference_max_min(elements, expected_result):
     assert pytest.approx(calculate_difference_max_min(elements), 0.001) == expected_result
+
+# Тест для третьего задания
+@pytest.mark.parametrize(
+    "elements, expected_result",
+    [
+        ((), []),  # Пустой кортеж
+        ((0,), [0]),  # Один элемент
+        ((-20, -5, 10, 15), [-5, 10, 15, -20]),  # Пример из задания
+        ((1, 2, 3, 0), [0, 1, 2, 3]),  # Пример из задания
+        ((-1, -2, -3, 0), [0, -1, -2, -3]),  # Пример из задания
+        ((10, -10, 5, -5, 0), [0, 5, -5, 10, -10]),  # Смешанные значения
+        ((-1.5, 1.5, -2.5, 2.5), [-1.5, 1.5, -2.5, 2.5]),  # Float
+        ((100, -100, 50, -50, 0), [0, 50, -50, 100, -100]),  # Положительные и отрицательные
+        ((1e6, -1e6, 1e-6, -1e-6), [1e-6, -1e-6, 1e6, -1e6]),  # Маленькие и большие числа
+    ],
+)
+def test_sort_abs_elements(elements, expected_result):
+    assert sort_abs_elements(elements) == expected_result
+
+
+
+
 
 
 
