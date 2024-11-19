@@ -8,7 +8,7 @@ from unittest.mock import patch
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../4_prac')))
 
 # Импортируем функции
-from n_1 import pridumat_imya
+from n_1 import multiply_last_with_even
 
 # Параметризованный тест
 @pytest.mark.parametrize(
@@ -29,8 +29,8 @@ from n_1 import pridumat_imya
     ],
 )
 
-def pridumat_imya(elements, expected_result):
-    assert your_function(elements) == expected_result
+def test_multiply_last_with_even(elements, expected_result):
+    assert multiply_last_with_even(elements) == expected_result
 
 
 
