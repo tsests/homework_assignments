@@ -58,7 +58,7 @@ def test_calculate_difference_max_min(elements, expected_result):
 @pytest.mark.parametrize(
     "elements, expected_result",
     [
-        ((), []),  # Пустой кортеж
+        ((), ()),  # Пустой кортеж
         ((0,), [0]),  # Один элемент
         ((-20, -5, 10, 15), [-5, 10, 15, -20]),  # Пример из задания
         ((1, 2, 3, 0), [0, 1, 2, 3]),  # Пример из задания
