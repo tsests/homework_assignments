@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../4
 from n_1 import multiply_last_with_even
 from n_2 import calculate_difference_max_min
 from n_3 import sort_abs_elements
+from n_4 import calculate_list_median
 
 # Параметризованный тест
 @pytest.mark.parametrize(
@@ -73,7 +74,25 @@ def test_calculate_difference_max_min(elements, expected_result):
 def test_sort_abs_elements(elements, expected_result):
     assert sort_abs_elements(elements) == expected_result
 
-
+@pytest.mark.parametrize(
+    "elements, expected_result",
+    [
+        ([1, 2, 3, 4, 5], 3),  # Нечётное количество элементов, упорядоченный массив
+        ([3, 1, 2, 5, 3], 3),  # Нечётное количество, неупорядоченный массив
+        ([1, 300, 2, 200, 1], 2),  # Нечётное количество, разный диапазон
+        ([3, 6, 20, 99, 10, 15], 12.5),  # Чётное количество элементов
+        ((1, 2, 3, 4, 5), 3),  # Входные данные — кортеж
+        ((3, 6, 20, 99, 10, 15), 12.5),  # Кортеж с чётным количеством
+        ([10], 10),  # Единственный элемент
+        ((1, 1, 1, 1), 1),  # Все элементы одинаковы
+        ([1, 2], 1.5),  # Минимально возможное чётное количество
+        ([1, 2, 2, 1], 1.5),  # Чётное количество с повторяющимися числами
+        ([1, 2, 3, 4, 1000], 3),  # Смешанный диапазон значений
+        ([0, 0, 0, 0], 0),  # Только нули
+    ],
+)
+def test_calculate_list_median(elements, expected_result):
+    assert calculate_list_median(elements) == expected_result
 
 
 
