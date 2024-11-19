@@ -1,12 +1,16 @@
 ### [Junior+] 5. Полосатые слова 
 
+import re
+
 def count_number_of_striped_words(text: str):
     if (len(text) == 0):
         return 0
     
     vowels = ["A", "E", "I", "O", "U", "Y"]
     consonants = ["B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Z"]
-    text_list = text.upper().split()
+    text = text.upper()
+
+    text_list = list(re.findall(r'\b\w+\b', text))
 
     words_count = 0
 
@@ -28,7 +32,7 @@ def count_number_of_striped_words(text: str):
     return words_count    
 
 def main():
-    data: str = "aba babb ab"
+    data: str = "Dog,cat,mouse,bird.Human."
     print(f"Результат: {count_number_of_striped_words(data)}")
     
 if __name__=="__main__":
