@@ -12,6 +12,7 @@ from n_1 import multiply_last_with_even
 from n_2 import calculate_difference_max_min
 from n_3 import sort_abs_elements
 from n_4 import calculate_list_median
+from n_5 import count_number_of_striped_words
 
 # Параметризованный тест
 @pytest.mark.parametrize(
@@ -94,7 +95,28 @@ def test_sort_abs_elements(elements, expected_result):
 def test_calculate_list_median(elements, expected_result):
     assert calculate_list_median(elements) == expected_result
 
-
+@pytest.mark.parametrize(
+    "text, expected_result",
+    [
+        ("My name is ...", 3),  # Пример из задания
+        ("Hello world", 0),  # Пример из задания
+        ("A quantity of striped words.", 1),  # Пример из задания
+        ("Dog,cat,mouse,bird.Human.", 3),  # Пример из задания
+        ("", 0),  # Пустая строка
+        ("a", 0),  # Однобуквенное слово
+        ("ab", 1),  # Два символа: полосатое
+        ("abc", 0),  # Три символа: не полосатое
+        ("Aa Bb Cc", 0),  # Каждое слово не полосатое
+        ("eXample tEset", 1),  # Смешанный регистр, одно полосатое
+        ("123 456", 0),  # Только числа
+        ("Word1 Word2", 0),  # Смешанные слова
+        ("VowelA ConsonantC", 1),  # Одно полосатое
+        ("ABABAB ABABABA", 2),  # Чередующиеся длинные слова
+        ("M1M Nn! Uo, Yi.", 0),  # Пунктуация и цифры
+    ],
+)
+def test_count_number_of_striped_words(text, expected_result):
+    assert count_number_of_striped_words(text) == expected_result
 
 
 
