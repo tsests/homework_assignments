@@ -1,7 +1,7 @@
 ### 3. Последовательность
 def main():
     user_input_int: int = 0
-    while user_input_int < 1:
+    while user_input_int < 1 or user_input_int > 9:
         user_input: str = input()
         user_input_int = int(user_input)
     
