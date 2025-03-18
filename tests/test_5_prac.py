@@ -10,6 +10,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../5
 # Импортируем функции
 from n_1 import analyze_text
 from n_2 import int_to_roman
+from n_3 import find_min_rate_bank
+from n_4 import invert_dict
+from n_5 import create_currency_dict
+from n_6 import define_winner
 
 @pytest.mark.parametrize(
     "text, expected_chars, expected_words",
@@ -46,5 +50,65 @@ def test_analyze_text(text, expected_chars, expected_words):
 )
 def test_int_to_roman(num, expected):
     assert int_to_roman(num) == expected
+
+
+@pytest.mark.parametrize(
+    "rates_dict, expected",
+    [
+        ({'Sberbank': 55.8, 'VTB24': 53.91, 'MyBank': 53.91, 'Name': 98.99}, {'VTB24': 53.91, 'MyBank': 53.91}),
+        ({'BankA': 100, 'BankB': 200, 'BankC': 100}, {'BankA': 100, 'BankC': 100}),
+        ({'Alpha': 10.5}, {'Alpha': 10.5}),  # Один банк
+        ({}, set()),  # Пустой словарь
+        ({'OnlyBank': 99.99}, {'OnlyBank': 99.99}),  # Один элемент
+    ],
+)
+def test_find_min_rate_bank(rates_dict, expected):
+    assert find_min_rate_bank(rates_dict) == expected
+
+@pytest.mark.parametrize(
+    "original_dict, expected",
+    [
+        ({'Petr': '546810', 'Katya': '241815'}, {'546810': 'Petr', '241815': 'Katya'}),
+        ({'Alice': '12345', 'Bob': '67890'}, {'12345': 'Alice', '67890': 'Bob'}),
+        ({'X': '1'}, {'1': 'X'}),  # Один элемент
+        ({}, {}),  # Пустой словарь
+        ({'A': 'X', 'B': 'Y', 'C': 'Z'}, {'X': 'A', 'Y': 'B', 'Z': 'C'}),  # Несколько элементов
+    ],
+)
+def test_invert_dict(original_dict, expected):
+    assert invert_dict(original_dict) == expected
+
+@pytest.mark.parametrize(
+    "dates, rates, expected",
+    [
+        (
+            ['2017-03-01', '2017-03-02', '2017-03-03', '2017-03-04', '2017-03-05'], 
+            [55.7, 55.2, 23.1, 54.5, 1.1], 
+            {'2017-03-01': 55.7, '2017-03-02': 55.2, '2017-03-03': 23.1, '2017-03-04': 54.5, '2017-03-05': 1.1}
+        ),
+        ([], [], {}),  # Пустые списки
+        (['2024-01-01'], [100.0], {'2024-01-01': 100.0}),  # Один элемент
+        (['2023-12-31', '2024-01-01'], [99.9, 101.1], {'2023-12-31': 99.9, '2024-01-01': 101.1}),  # Два элемента
+    ],
+)
+def test_create_currency_dict(dates, rates, expected):
+    assert create_currency_dict(dates, rates) == expected
+
+@pytest.mark.parametrize(
+    "data, expected",
+    [
+        (["OOX", "XOO", "OXX"], "D"),  # Ничья
+        (["XXX", "O.O", "O.."], "X"),  # Победа X по горизонтали
+        (["O.O", "XXX", "O.."], "X"),  # Победа X по горизонтали
+        (["O.O", "O..", "XXX"], "X"),  # Победа X по горизонтали
+        (["XOO", "X..", "X.."], "X"),  # Победа X по вертикали
+        (["OXO", "O.X", "O.X"], "O"),  # Победа O по вертикали
+        (["X..", ".X.", "..X"], "X"),  # Победа X по диагонали
+        (["..O", ".O.", "O.."], "O"),  # Победа O по диагонали
+        (["...", "...", "..."], "D"),  # Пустое поле (ничья)
+    ],
+)
+def test_define_winner(data, expected):
+    assert define_winner(data) == expected
 
 
