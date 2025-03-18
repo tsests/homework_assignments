@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../5
 
 # Импортируем функции
 from n_1 import analyze_text
+from n_2 import int_to_roman
 
 @pytest.mark.parametrize(
     "text, expected_chars, expected_words",
@@ -23,4 +24,27 @@ from n_1 import analyze_text
 )
 def test_analyze_text(text, expected_chars, expected_words):
     assert analyze_text(text) == (expected_chars, expected_words)
+
+@pytest.mark.parametrize(
+    "num, expected",
+    [
+        (1, "I"),
+        (4, "IV"),
+        (6, "VI"),
+        (9, "IX"),
+        (13, "XIII"),
+        (44, "XLIV"),
+        (76, "LXXVI"),
+        (90, "XC"),
+        (3999, "MMMCMXCIX"),
+        (1000, "M"),
+        (500, "D"),
+        (400, "CD"),
+        (50, "L"),
+        (10, "X"),
+    ],
+)
+def test_int_to_roman(num, expected):
+    assert int_to_roman(num) == expected
+
 
