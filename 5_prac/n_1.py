@@ -1,18 +1,13 @@
 ### 1. Анализ текста. Популярность.
+import re
+from collections import Counter
+
 def analyze_text(input_string: str):
-    words_popularity:dict = {}
-    chars_popularity:dict = {}
-
-    chars_popularity = dict.fromkeys(input_string, 0)
-    words_popularity = dict.fromkeys(input_string.split(), 0)
+    text_clean = re.sub(r'[^\w\s]', '', text)
+    chars = Counter(text_clean.replace(" ", "").lower())
+    words = Counter(text_clean.lower().split())
     
-    words_in_text = input_string.split()
-    for i in words_in_text:
-        words_popularity[i] += 1
-
-    for char in input_string:
-        chars_popularity[char] += 1
-    return chars_popularity, words_popularity
+    return chars, words
 
 def main():
     text = "hello, word of word"
