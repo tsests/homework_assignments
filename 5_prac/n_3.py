@@ -1,5 +1,7 @@
 
 def find_min_rate_bank(rates_dict):
+    if not rates_dict:  # Если словарь пустой
+        return set()
     values:list = rates_dict.values()
     
     min_value:int = min(values)
