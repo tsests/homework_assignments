@@ -55,6 +55,12 @@ jobs:
           pytest tests/test_4_prac.py
         continue-on-error: true
 
+      - name: Run tests for 5_prac
+        id: test_5_prac
+        run: |
+          pytest tests/test_5_prac.py
+        continue-on-error: true
+
       # Обновление статуса эмоджи в README.md в зависимости от результата тестов
       - name: Update README badge for 1_prac
         if: always()
@@ -90,6 +96,16 @@ jobs:
             sed -i 's/\(\[Структуры данных\](4_prac)\) .*/\1 ✅/' README.md
           else
             sed -i 's/\(\[Структуры данных\](4_prac)\) .*/\1 ❌/' README.md
+          fi
+
+
+      - name: Update README badge for 5_prac
+        if: always()
+        run: |
+          if [[ "${{ steps.test_5_prac.outcome }}" == "success" ]]; then
+            sed -i 's/\(\[Структуры данных. Прдолжение\](5_prac)\) .*/\1 ✅/' README.md
+          else
+            sed -i 's/\(\[Структуры данных. Прдолжение\](5_prac)\) .*/\1 ❌/' README.md
           fi
           
       # Коммит и пуш изменений в README.md
