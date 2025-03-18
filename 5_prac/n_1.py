@@ -3,7 +3,7 @@ import re
 from collections import Counter
 
 def analyze_text(input_string: str):
-    text_clean = re.sub(r'[^\w\s]', '', text)
+    text_clean = re.sub(r'[^\w\s]', '', input_string)
     chars = Counter(text_clean.replace(" ", "").lower())
     words = Counter(text_clean.lower().split())
     
