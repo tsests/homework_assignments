@@ -1,6 +1,5 @@
 ### 1. Анализ текста. Популярность.
-def analyze_text(text: str):
-    input_string: str = "hello, word of word" 
+def analyze_text(input_string: str):
     words_popularity:dict = {}
     chars_popularity:dict = {}
 
